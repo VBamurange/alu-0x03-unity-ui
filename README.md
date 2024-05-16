@@ -1,1 +1,1 @@
-# 0x02. Unity - Scripting
+# alu-0x02-unity-scripting
