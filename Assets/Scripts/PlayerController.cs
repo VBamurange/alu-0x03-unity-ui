@@ -1,48 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 25f;
+    public float speed = 45f;
     private int score = 0;
     public int health = 5;
-    private int initialHealth;
-    private float vertical;
-    private float horizontal;
+    
     private Rigidbody rb;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (Time.frameCount % 10 == 0)
-        {
 
-
-            if (health <= 0)
+            if (health == 0)
             {
                 Debug.Log("Game Over!");
-                health = 5;
-                score = 0;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                ResetPlayer();
             }
         }
 
          void FixedUpdate()
         {
-            PlayerMovements();
-        }
-
-
-         void PlayerMovements()
-        {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        rb.AddForce(new Vector3(horizontal, 0.0f, vertical) * (speed * Time.deltaTime));
         }
 
          void OnTriggerEnter(Collider other)
@@ -51,16 +42,16 @@ public class PlayerController : MonoBehaviour
             {
                 score++;
                 Debug.Log("Score: " + score);
-                Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
             }
-            if (other.CompareTag("Trap"))
+            else if (other.gameObject.CompareTag("Trap"))
             {
                 health--;
                 Debug.Log("Health: " + health);
             }
-            if (other.CompareTag("Goal"))
+            else if (other.gameObject.CompareTag("Goal"))
             {
                 Debug.Log("You win!");
             }
         }
-    } }
+    }
