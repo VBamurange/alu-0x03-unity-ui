@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 45f;
+    public float speed = 50f;
     private int score = 0;
     public int health = 5;
     
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Game Over!");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                ResetPlayer();
+               
             }
         }
 
