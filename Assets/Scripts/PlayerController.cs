@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,8 +32,7 @@ public class PlayerController : MonoBehaviour
 
         if (health == 0)
         {
-            Debug.Log("Game Over!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameOver();
 
         }
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -56,7 +53,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Pickup"))
         {
             score++;
-            Debug.Log("Score: " + score);
+            SetScoreText();
+            ;// UnityEngine.Debug.Log("Score: " + score);
             other.gameObject.SetActive(false);
         }
         else if (other.gameObject.CompareTag("Trap"))
@@ -73,21 +71,24 @@ public class PlayerController : MonoBehaviour
     }
     void SetScoreText()
     {
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = "Score: " + score;
 
     }
     void SetHealthText()
     {
-        healthText.text = "Health: " + health.ToString();
+        healthText.text = "Health: " + health;
     }
     void WinGame()
     {
+        winLoseBG.gameObject.SetActive(true);
         winLoseText.text = "You win!";
         winLoseText.color = Color.black;
         winLoseBG.color = Color.green;
+        StartCoroutine(LoadScene(3));
     }
     void GameOver()
     {
+        winLoseBG.gameObject.SetActive(true);
         winLoseText.text = "Game Over!";
         winLoseText.color = Color.white;
         winLoseBG.color = Color.red;
