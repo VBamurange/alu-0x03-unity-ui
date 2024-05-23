@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
         SetScoreText();
         SetHealthText();
     }
-
-
     void Update()
     {
 
