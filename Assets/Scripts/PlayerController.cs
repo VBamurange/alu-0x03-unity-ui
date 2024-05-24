@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         SetScoreText();
         SetHealthText();
+        winLoseBG.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            LoadMenu();
+            SceneManager.LoadScene("menu");
         }
     }
 
@@ -51,9 +52,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Pickup"))
         {
             score++;
-            SetScoreText();
-            ;// UnityEngine.Debug.Log("Score: " + score);
+            // UnityEngine.Debug.Log("Score: " + score);
             other.gameObject.SetActive(false);
+            SetScoreText();
         }
         else if (other.gameObject.CompareTag("Trap"))
         {
